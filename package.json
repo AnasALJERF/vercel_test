@@ -1,10 +1,10 @@
-{
+
 "next-sanity": "^9.8.0",
 "sanity": "^3.99.0",
 "@sanity/vision": "^3.99.0",
 "@sanity/image-url": "^1.1.0",
 "styled-components": "^6.1.0"
- },
+
 {
   "name": "shahd-furniture",
   "version": "1.0.0",
