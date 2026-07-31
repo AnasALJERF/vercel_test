@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-arabic: "El Messiri", "Segoe UI", Tahoma, sans-serif;
+  --font-display: "El Messiri", "Fraunces", Georgia, serif;
+  --font-latin: "Fraunces", Georgia, serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-espresso text-bone antialiased;
+    font-family: var(--font-arabic);
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: theme("colors.honey");
+    color: theme("colors.espresso");
+  }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.amber");
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+
+  /* أرقام لاتينية دائماً حتى داخل النص العربي */
+  html {
+    font-feature-settings: "lnum" 1;
+    font-variant-numeric: lining-nums;
+  }
+}
+
+@layer components {
+  .container-content {
+    @apply mx-auto w-full max-w-content px-6 md:px-10;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-xs font-semibold tracking-wide text-honey;
+  }
+
+  .eyebrow::before {
+    content: "";
+    @apply h-px w-8 bg-honey/60;
+  }
+
+  .btn-honey {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-honey-grad px-8 py-3.5
+           text-sm font-bold text-espresso transition-all duration-300
+           hover:shadow-glow hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-bone/25 px-8 py-3.5
+           text-sm font-bold text-bone transition-all duration-300
+           hover:border-honey hover:text-honey;
+  }
+
+  .card-surface {
+    @apply rounded-xl2 border border-bone/8 bg-walnut/70 backdrop-blur-sm;
+  }
+
+  .glass {
+    @apply border border-bone/12 bg-bone/5 backdrop-blur-md;
+  }
+
+  .section-light {
+    @apply bg-parchment text-espresso;
+  }
+
+  .section-light h1,
+  .section-light h2,
+  .section-light h3,
+  .section-light h4 {
+    @apply text-espresso;
+  }
+
+  .card-light {
+    @apply rounded-xl2 border border-espresso/10 bg-bone/70 shadow-sm;
+  }
+
+  .num {
+    font-family: var(--font-latin);
+    font-feature-settings: "lnum" 1;
+    letter-spacing: 0.02em;
+  }
+
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-bone/15 to-transparent;
+  }
+
+  .font-latin {
+    font-family: var(--font-latin);
+  }
+}
+
+::-webkit-scrollbar { width: 11px; }
+::-webkit-scrollbar-track { background: #15100A; }
+::-webkit-scrollbar-thumb {
+  background: #3A2C1E;
+  border-radius: 999px;
+  border: 3px solid #15100A;
+}
+::-webkit-scrollbar-thumb:hover { background: #7A5C3A; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
