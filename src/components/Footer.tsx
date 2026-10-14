@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import Icon from "./Icons";
-import { SITE, waLink } from "@/lib/seo";
+import SocialIcons from "./SocialIcons";
+import { SITE } from "@/lib/seo";
 
 export default function Footer() {
   return (
@@ -13,14 +14,14 @@ export default function Footer() {
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-taupe">
               {SITE.footerAbout}
             </p>
-            <a href={SITE.facebook} target="_blank" rel="noopener noreferrer" className="btn-ghost mt-6 text-xs">
-              صفحتنا على فيسبوك
-            </a>
+            <p className="mt-7 text-xs font-semibold text-bone/80">تابعنا وتواصل معنا</p>
+            <SocialIcons className="mt-3" />
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold text-bone">روابط</h4>
+            <h2 className="text-sm font-semibold text-bone">روابط</h2>
             <ul className="mt-4 space-y-2 text-sm text-taupe">
+              <li><Link href="/" className="transition-colors hover:text-honey">الرئيسية</Link></li>
               <li><Link href="/collections" className="transition-colors hover:text-honey">أقسامنا</Link></li>
               <li><Link href="/services" className="transition-colors hover:text-honey">خدماتنا</Link></li>
               <li><Link href="/gallery" className="transition-colors hover:text-honey">أعمالنا</Link></li>
@@ -30,7 +31,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold text-bone">تواصل</h4>
+            <h2 className="text-sm font-semibold text-bone">تواصل</h2>
             <ul className="mt-4 space-y-3 text-sm text-taupe">
               <li className="flex items-start gap-3">
                 <Icon name="pin" size={18} className="mt-0.5 shrink-0 text-honey" />
@@ -47,7 +48,6 @@ export default function Footer() {
                 <span>{SITE.hours}</span>
               </li>
             </ul>
-            <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn-ghost mt-5 text-xs">راسلنا عبر واتساب</a>
           </div>
         </div>
 

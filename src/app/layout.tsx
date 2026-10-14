@@ -1,30 +1,48 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { SITE, organizationJsonLd } from "@/lib/seo";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import JsonLd from "@/components/JsonLd";
+import MotionProvider from "@/components/MotionProvider";
+import { SITE, KEYWORDS, OG_IMAGE, localBusinessJsonLd, websiteJsonLd } from "@/lib/seo";
+
+const DEFAULT_TITLE = "شهد للمفروشات | مفروشات في سلمية — مجالس، غرف نوم، برادي";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
-  title: {
-    default: `${SITE.name} — ${SITE.tagline}`,
-    template: `%s — ${SITE.name}`,
-  },
+  title: { default: DEFAULT_TITLE, template: `%s | ${SITE.name}` },
   description: SITE.description,
-  keywords: [
-    "شهد للمفروشات", "مفروشات", "أقمشة مفروشات", "برادي", "ستائر",
-    "تنجيد", "تنجيد مجالس", "تنجيد كنب", "صالة مفروشات", "Shahd Furniture",
-  ],
+  keywords: KEYWORDS,
+  applicationName: SITE.name,
+  authors: [{ name: SITE.fullName }],
+  creator: SITE.fullName,
+  publisher: SITE.fullName,
+  category: "furniture",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: `${SITE.name} — ${SITE.tagline}`,
+    title: DEFAULT_TITLE,
     description: SITE.description,
-    url: SITE.url,
+    url: "/",
     siteName: SITE.name,
     type: "website",
-    locale: "ar_SA",
+    locale: "ar_SY",
+    images: [OG_IMAGE],
   },
-  twitter: { card: "summary_large_image" },
-  robots: { index: true, follow: true },
+  twitter: { card: "summary_large_image", title: DEFAULT_TITLE, description: SITE.description, images: [OG_IMAGE.url] },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+  },
+  formatDetection: { telephone: true, address: true },
+  ...(SITE.googleVerification ? { verification: { google: SITE.googleVerification } } : {}),
+  other: { "geo.region": "SY-HM", "geo.placename": "سلمية" },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#15100A",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -37,16 +55,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/logos/logo.jpg" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
+        <JsonLd data={[localBusinessJsonLd(), websiteJsonLd()]} />
+        {/* بدون جافاسكربت: أظهر كل المحتوى المخفي بانتظار حركة الظهور */}
+        <noscript>
+          <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
       </head>
       <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-[200] focus:rounded-lg focus:bg-honey focus:px-4 focus:py-2 focus:text-espresso">
+          تخطَّ إلى المحتوى
+        </a>
+        <MotionProvider>
+          <Navbar />
+          <main id="main">{children}</main>
+          <Footer />
+          <FloatingWhatsApp />
+        </MotionProvider>
       </body>
     </html>
   );

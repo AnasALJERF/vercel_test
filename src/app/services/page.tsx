@@ -1,21 +1,23 @@
 import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/JsonLd";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import CTA from "@/components/CTA";
 import { services, steps, IMG } from "@/lib/data";
-import { pageMeta, waLink } from "@/lib/seo";
+import { pageMeta, waLink, breadcrumbJsonLd } from "@/lib/seo";
 import { stagger, fadeUp } from "@/lib/motion";
 
 export const metadata = pageMeta({
-  title: "خدماتنا — حلول متكاملة لكل تفاصيل منزلك",
+  title: "فرش المنازل والفلل وحفر CNC ليزر في سلمية",
   description:
-    "خدمات شهد للمفروشات: فرش المنازل والفلل، القص والحفر بتقنية CNC ليزر، المطابخ والأبواب، البدائل الخشبية والرخامية، فرش المحلات والمكاتب، والاستشارة والتصميم.",
+    "خدمات شهد للمفروشات في سلمية وحماة: فرش المنازل والفلل والمضافات، قص وحفر CNC ليزر، مطابخ وأبواب، بديل خشب ورخام، وفرش المحلات والمكاتب مع استشارة مجانية.",
   path: "/services",
 });
 
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "خدماتنا", path: "/services" }])} />
       <PageHero
         eyebrow="خدماتنا"
         title="حلول متكاملة... لكل تفاصيل منزلك"

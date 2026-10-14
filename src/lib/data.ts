@@ -1,32 +1,45 @@
-// محتوى موقع صالة شهد للمفروشات الراقية
-// النصوص مستخلصة من منشورات الصفحة الرسمية على فيسبوك.
-// الصور الحالية من Unsplash (ترخيص حر للاستخدام التجاري) — تستبدل بصور الصالة.
+// محتوى موقع شهد للمفروشات — سوريا، حماة، سلمية
+// الصور في /public/photos صور حقيقية من أعمال الصالة.
+// صورتا الواجهة الرئيسية والورشة فقط من Unsplash (ترخيص حر) لأنهما تخدمان أجواء التصميم.
 
 const U = (id: string, w = 1600) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
+const P = (name: string) => `/photos/site/${name}.webp`;
 
 export const IMG = {
+  // أجواء (Unsplash)
   heroSofa: U("1768946131536-39b5f3ec329d", 2200),
-  majlis: U("1517858818796-d31fc694c92a"),
-  salon: U("1567016432779-094069958ea5"),
-  guestRoom: U("1616594039964-ae9021a400a0"),
-  bedroom: U("1512918728675-ed5a9ecdebfd"),
-  bedroomWarm: U("1562438668-bcf0ca6578f0"),
-  bedroomCloset: U("1680503146476-abb8c752e1f4"),
-  kidsRoom: U("1598928636135-d146006ff4be"),
-  dining: U("1653971858270-c6f28319797c"),
-  curtainFloral: U("1628428988931-14bc33099075"),
-  curtainDrape: U("1519035350952-38d18a3848cf"),
-  curtainSheer: U("1570427224050-b080ad19e3c4"),
-  curtainWindow: U("1473252812967-d565c3607e28"),
-  velvet: U("1513111168953-34fc252c9279"),
-  fabricDetail: U("1702865071803-cb154cd45f48"),
-  cushion: U("1590251024078-8a6d9f90b02d"),
   workshop: U("1762803841519-25bb12e01579"),
-  armchair: U("1616627547584-bf28cee262db"),
-  tufted: U("1552848469-b4c949fdded7"),
-  office: U("1541558949596-1d9103f64840"),
-  woodPanel: U("1617597190828-1bf579d485ee"),
+  // صور الأقسام
+  majlis: P("collection-majlis"),
+  salon: P("collection-salons"),
+  bedroom: P("collection-bedrooms"),
+  dining: P("collection-dining"),
+  curtains: P("collection-curtains"),
+  fabrics: P("collection-fabrics"),
+  // الرئيسية
+  homeCurtains: P("home-curtains"),
+  homeBedrooms: P("home-bedrooms"),
+  homeFabrics: P("home-fabrics"),
+  homeIntro1: P("home-intro-1"),
+  homeIntro2: P("home-intro-2"),
+  // رؤوس الصفحات
+  heroAbout: P("hero-about"),
+  heroContact: P("hero-contact"),
+  heroCollections: P("hero-collections"),
+  heroGallery: P("hero-gallery"),
+  // من نحن
+  about1: P("about-1"),
+  about2: P("about-2"),
+  about3: P("about-3"),
+  about4: P("about-4"),
+  // المشاريع
+  projectHome: P("project-home"),
+  projectVilla: P("project-villa"),
+  projectMadafa: P("project-madafa"),
+  projectSalon: P("project-salon"),
+  projectFlat: P("project-flat"),
+  projectMajlis: P("project-majlis"),
 };
 
 /* ============ الأقسام / المنتجات ============ */
@@ -87,7 +100,7 @@ export const collections: Collection[] = [
     tagline: "تحكم بالإضاءة... وأكمل أناقة المكان",
     description:
       "البرادي ليست مجرد وسيلة لحجب الضوء، بل عنصر أساسي في تصميم المنزل. نوفر تشكيلة واسعة من البرادي والستائر بمختلف الأنواع والأقمشة، مع خيارات زخرفية وتيجان ليزر تضيف لمسة فاخرة تكمل جمال المساحة.",
-    image: IMG.curtainFloral,
+    image: IMG.curtains,
     items: ["برادي رول ودبل رول", "دبل ستور وزيبرا", "برادي قماشية", "فوال مطرز وتيجان ليزر"],
     icon: "layout",
   },
@@ -96,8 +109,8 @@ export const collections: Collection[] = [
     title: "أقمشة المفروشات",
     tagline: "لأن الجودة تبدأ من اختيار القماش",
     description:
-      "الخامة هي الأساس الذي يحدد جمال المفروشات وعمرها. لذلك نوفر مخامل مستوردة، وأقمشة كتان وشانيل، وأقمشة مخصصة للمفروشات والبرادي، مختارة بعناية لتمنحك ملمساً فاخراً، وألواناً ثابتة، وجودة تدوم مع الاستخدام اليومي.",
-    image: IMG.velvet,
+      "الخامة هي الأساس الذي يحدد جمال المفروشات وعمرها. لذلك نوفر مخامل مستوردة، وأقمشة كتان وشانيل، وأقمشة مخصصة للمفروشات والبرادي، مختارة بعناية لتمنحك ملمساً فاخراً، وألواناً ثابتة، وجودة تليق بمنزلك.",
+    image: IMG.fabrics,
     items: ["مخمل مستورد", "كتان وشانيل", "أقمشة برادي", "أقمشة مفروشات"],
     icon: "layout",
   },
@@ -159,15 +172,15 @@ export const services: Service[] = [
 
 /* ============ المميزات ============ */
 export const features = [
-  { title: "خامات مختارة بعناية", body: "نعتمد مخامل وأقمشة مستوردة عالية الجودة تمنحك مظهراً فاخراً وتحافظ على جمالها مع الاستخدام اليومي.", icon: "fabric" },
-  { title: "هياكل متينة", body: "خشب من النوع الأول وإسفنج إكسترا مكفول لضمان الراحة والمتانة لسنوات طويلة.", icon: "wood" },
+  { title: "خامات مختارة بعناية", body: "نعتمد مخامل وأقمشة مستوردة عالية الجودة تمنحك مظهراً فاخراً وتحافظ على جمالها بما يليق بمنزلك.", icon: "fabric" },
+  { title: "هياكل متينة", body: "خشب من النوع الأول وإسفنج إكسترا مكفول لراحة ومتانة تليق بك.", icon: "wood" },
   { title: "كفالة حقيقية", body: "نقف خلف جودة كل قطعة ننفذها، لأن ثقة العميل هي أهم ما نبنيه.", icon: "shield" },
   { title: "تنفيذ باحتراف", body: "حرفيون ذوو خبرة يهتمون بكل تفصيلة، من أول قياس وحتى آخر لمسة.", icon: "hand" },
 ];
 
 /* ============ لماذا يختارنا عملاؤنا (صفحة من نحن) ============ */
 export const whyUs = [
-  { title: "خامات مختارة بعناية", body: "نستخدم مخامل وأقمشة مستوردة وخامات عالية الجودة تمنح كل قطعة مظهراً راقياً وعُمراً أطول.", icon: "fabric" },
+  { title: "خامات مختارة بعناية", body: "نستخدم مخامل وأقمشة مستوردة وخامات عالية الجودة تمنح كل قطعة مظهراً راقياً يليق بذوقك.", icon: "fabric" },
   { title: "تنفيذ متقن", body: "نعتمد خشباً من النوع الأول، وإسفنجاً عالي الكثافة، مع اهتمام بكل تفصيلة أثناء التصنيع والتنجيد.", icon: "wood" },
   { title: "كفالة تمنحك راحة البال", body: "نقف خلف جودة أعمالنا لأن رضا العميل هو أساس نجاحنا.", icon: "shield" },
   { title: "خبرة تثق بها", body: "فريقنا يرافقك في كل خطوة، من اختيار التصميم وحتى التركيب النهائي، ليضمن لك تجربة مريحة ونتيجة تليق بمنزلك.", icon: "hand" },
@@ -183,9 +196,9 @@ export const steps = [
 
 /* ============ الصور البارزة في الرئيسية ============ */
 export const highlights = [
-  { key: "CURTAINS", title: "برادي وستائر", line: "لمسة أناقة تكمل تفاصيل منزلك", image: IMG.curtainFloral },
-  { key: "BEDROOMS", title: "غرف نوم", line: "راحة يومية بتصاميم راقية", image: IMG.bedroom },
-  { key: "FABRICS", title: "أقمشة فاخرة", line: "خامات مختارة تدوم وتبهر", image: IMG.velvet },
+  { key: "CURTAINS", title: "برادي وستائر", line: "لمسة أناقة تكمل تفاصيل منزلك", image: IMG.homeCurtains },
+  { key: "BEDROOMS", title: "غرف نوم", line: "راحة يومية بتصاميم راقية", image: IMG.homeBedrooms },
+  { key: "FABRICS", title: "أقمشة فاخرة", line: "خامات مختارة بذوق يليق بمنزلك", image: IMG.homeFabrics },
 ];
 
 /* ============ أعمال منجزة ============ */
@@ -196,26 +209,12 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-  { title: "فرش منزل متكامل", scope: "تنفيذ متكامل شمل المجلس، غرفة النوم، طاولات الضيافة، البرادي، والتنسيق العام للمساحات، ليظهر المنزل بهوية متناسقة تعكس ذوق أصحابه.", image: IMG.salon },
-  { title: "فرش فيلا", scope: "تنفيذ شامل لفيلا سكنية باستخدام مخامل مستوردة، وتصاميم راقية، مع تنسيق جميع التفاصيل لتحقيق تجربة فاخرة في كل زاوية.", image: IMG.heroSofa },
-  { title: "مضافة بجلسة خليجية", scope: "مجلس خليجي فاخر بهياكل من خشب النوع الأول، وحفر CNC ليزر، وبرادي دبل رول صممت لتمنح المكان حضوراً مميزاً.", image: IMG.majlis },
-  { title: "تجهيز صالون تجميل", scope: "تنفيذ متكامل شمل بديل الخشب، بديل الرخام، المرايا المضيئة، البرادي، والكنبايات، ليعكس هوية المشروع بأسلوب عصري.", image: IMG.woodPanel },
-  { title: "فرش شقة سكنية", scope: "تنسيق الصالون وغرفة النوم والبرادي بما يحقق الاستفادة المثلى من المساحة مع المحافظة على الطابع الأنيق.", image: IMG.bedroomWarm },
-  { title: "مجلس خليجي فاخر", scope: "تنفيذ خاص باستخدام مخمل مستورد فاخر مع تيجان وزخارف ليزر تضيف لمسة من الفخامة والتفرد.", image: IMG.armchair },
-];
-
-/* ============ ما يضمه المعرض ============ */
-export const galleryScope = [
-  "المجالس العربية والخليجية",
-  "غرف الضيوف والصالونات",
-  "غرف النوم",
-  "غرف الأطفال",
-  "غرف السفرة",
-  "البرادي والستائر",
-  "الأقمشة والمخمل",
-  "أعمال التنجيد",
-  "فرش المكاتب",
-  "المشاريع التجارية",
+  { title: "فرش منزل متكامل", scope: "تنفيذ متكامل شمل المجلس، غرفة النوم، طاولات الضيافة، البرادي، والتنسيق العام للمساحات، ليظهر المنزل بهوية متناسقة تعكس ذوق أصحابه.", image: IMG.projectHome },
+  { title: "فرش فيلا", scope: "تنفيذ شامل لفيلا سكنية باستخدام مخامل مستوردة، وتصاميم راقية، مع تنسيق جميع التفاصيل لتحقيق تجربة فاخرة في كل زاوية.", image: IMG.projectVilla },
+  { title: "مضافة بجلسة خليجية", scope: "مجلس خليجي فاخر بهياكل من خشب النوع الأول، وحفر CNC ليزر، وبرادي دبل رول صممت لتمنح المكان حضوراً مميزاً.", image: IMG.projectMadafa },
+  { title: "تجهيز صالون تجميل", scope: "تنفيذ متكامل شمل بديل الخشب، بديل الرخام، المرايا المضيئة، البرادي، والكنبايات، ليعكس هوية المشروع بأسلوب عصري.", image: IMG.projectSalon },
+  { title: "فرش شقة سكنية", scope: "تنسيق الصالون وغرفة النوم والبرادي بما يحقق الاستفادة المثلى من المساحة مع المحافظة على الطابع الأنيق.", image: IMG.projectFlat },
+  { title: "مجلس خليجي فاخر", scope: "تنفيذ خاص باستخدام مخمل مستورد فاخر مع تيجان وزخارف ليزر تضيف لمسة من الفخامة والتفرد.", image: IMG.projectMajlis },
 ];
 
 /* ============ آراء العملاء ============ */
@@ -225,22 +224,6 @@ export const testimonials = [
   { text: "من اختيار الأقمشة وحتى التركيب، شعرنا أننا نتعامل مع فريق يهتم بمنزلنا كما نهتم نحن به.", name: "من عملائنا" },
 ];
 
-/* ============ المعرض ============ */
-export const gallery = [
-  { src: IMG.heroSofa, alt: "طقم كنب فاخر" },
-  { src: IMG.majlis, alt: "جلسة خليجية" },
-  { src: IMG.curtainFloral, alt: "برادي قماشية" },
-  { src: IMG.bedroom, alt: "غرفة نوم" },
-  { src: IMG.velvet, alt: "مخمل مستورد" },
-  { src: IMG.curtainDrape, alt: "تفاصيل برادي" },
-  { src: IMG.guestRoom, alt: "غرفة ضيوف" },
-  { src: IMG.fabricDetail, alt: "تفاصيل التنجيد" },
-  { src: IMG.dining, alt: "ركن سفرة" },
-  { src: IMG.curtainSheer, alt: "ستائر فوال" },
-  { src: IMG.tufted, alt: "كرسي منجد" },
-  { src: IMG.bedroomCloset, alt: "غرفة نوم بدولاب" },
-  { src: IMG.cushion, alt: "وسائد ومفروشات" },
-  { src: IMG.office, alt: "فرش مكاتب" },
-  { src: IMG.curtainWindow, alt: "برادي نوافذ" },
-  { src: IMG.kidsRoom, alt: "غرفة أطفال" },
-];
+/* ============ المعرض (صور حقيقية) ============ */
+export { gallery, galleryCats } from "./gallery";
+export type { GalleryItem, GalleryCat } from "./gallery";

@@ -1,44 +1,47 @@
 import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/JsonLd";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import { IMG } from "@/lib/data";
-import { SITE, pageMeta, waLink } from "@/lib/seo";
+import { SITE, pageMeta, waLink, breadcrumbJsonLd, mapEmbedUrl, mapOpenUrl } from "@/lib/seo";
+import SocialIcons from "@/components/SocialIcons";
 import { stagger, fadeUp } from "@/lib/motion";
 
 export const metadata = pageMeta({
-  title: "تواصل معنا — سوريا، حماة، سلمية",
+  title: "تواصل معنا — عنوان صالة شهد للمفروشات في سلمية",
   description:
-    "تواصل مع شهد للمفروشات: سوريا — حماة — سلمية، شارع حمص، غرب تقاطع الصحن الذهبي. أرقام التواصل وأوقات الدوام.",
+    "عنوان صالة شهد للمفروشات: سوريا، حماة، سلمية، شارع حمص، غرب دوار المطاعم بـ 50 متراً. أرقام الهاتف والواتساب وأوقات الدوام والموقع على الخريطة.",
   path: "/contact",
 });
 
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "تواصل معنا", path: "/contact" }])} />
       <PageHero
         eyebrow="تواصل معنا"
         title="يسعدنا أن نكون جزءاً من مشروعك القادم"
         subtitle="إذا كنت تبحث عن الجودة، والذوق، والتنفيذ الاحترافي، فإن فريق شهد للمفروشات جاهز للإجابة عن استفساراتك ومساعدتك في اختيار الحلول المناسبة لمنزلك أو مشروعك."
-        image={IMG.curtainSheer}
+        image={IMG.heroContact}
       />
 
       <section className="py-20 md:py-24">
         <div className="container-content grid gap-12 lg:grid-cols-2">
           <Reveal>
             <span className="eyebrow">معلومات التواصل</span>
-            <h2 className="mt-5 text-display-md text-bone">تفضل بزيارتنا</h2>
+            <h2 className="mt-5 text-display-md text-bone">تفضل بزيارتنا في سلمية</h2>
 
             <ul className="mt-10 space-y-7">
               <li className="flex gap-4">
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-bone/5 text-honey">
                   <Icon name="pin" size={22} />
                 </span>
-                <div>
+                <address className="not-italic">
                   <h3 className="text-base text-bone">العنوان</h3>
                   <p className="mt-1.5 font-medium text-bone/90">{SITE.addressLine1}</p>
                   <p className="mt-1 text-sm leading-relaxed text-bone/70">{SITE.addressLine2}</p>
                   <p className="mt-0.5 text-sm leading-relaxed text-taupe">{SITE.addressLine3}</p>
-                </div>
+                </address>
               </li>
 
               <li className="flex gap-4">
@@ -70,26 +73,31 @@ export default function ContactPage() {
               </li>
             </ul>
 
-            <div className="mt-10 flex flex-wrap gap-4">
+            <div className="mt-10 flex flex-wrap items-center gap-6">
               <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn-honey">اطلب استشارة مجانية</a>
-              <a href={SITE.facebook} target="_blank" rel="noopener noreferrer" className="btn-ghost">زيارة صفحتنا على فيسبوك</a>
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-bone/70">تابعنا</span>
+                <SocialIcons />
+              </div>
             </div>
           </Reveal>
 
           <Reveal delay={0.15}>
-            <div className="overflow-hidden rounded-xl2 border border-bone/10">
+            <div className="overflow-hidden rounded-xl2 border border-bone/10 shadow-lift">
               <iframe
-                title="موقع صالة شهد للمفروشات"
-                src="https://www.google.com/maps?q=Salamiyah,+Hama,+Syria&output=embed"
-                className="h-[420px] w-full"
+                title="موقع صالة شهد للمفروشات على الخريطة — سلمية، شارع حمص"
+                src={mapEmbedUrl()}
+                className="h-[460px] w-full"
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
               />
             </div>
-            <p className="mt-4 text-sm leading-relaxed text-taupe">
-              الخريطة تشير إلى مدينة {SITE.city} بشكل عام. لتحديد موقع الصالة بدقة يمكن
-              إضافة الموقع لاحقاً عبر خرائط جوجل.
-            </p>
+            {mapOpenUrl() && (
+              <a href={mapOpenUrl()} target="_blank" rel="noopener noreferrer" className="btn-ghost mt-5">
+                افتح الموقع في خرائط جوجل
+              </a>
+            )}
           </Reveal>
         </div>
       </section>

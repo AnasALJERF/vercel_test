@@ -1,36 +1,39 @@
-# شهد للمفروشات — Shahd Furniture
+# شهد للمفروشات — Shahed Furniture
 
-موقع تعريفي لصالة شهد للمفروشات (سوريا — حماة — سلمية)، بالعربية بالكامل ومن اليمين لليسار (RTL).
+موقع صالة شهد للمفروشات (سوريا — حماة — سلمية). عربي بالكامل RTL.
 Next.js 14 + TypeScript + Tailwind CSS + Framer Motion.
 
 ## الصفحات
-- `/` الرئيسية
-- `/collections` أقسامنا
-- `/services` خدماتنا
-- `/gallery` أعمالنا
-- `/about` من نحن
-- `/contact` تواصل معنا
+`/` الرئيسية · `/collections` أقسامنا · `/services` خدماتنا · `/gallery` أعمالنا · `/about` من نحن · `/contact` تواصل معنا
 
-## التشغيل محليا
+## ما تبقى عليك تعبئته (كله في ملف واحد: `src/lib/seo.ts`)
+| الحقل | ماذا تضع |
+|---|---|
+| `url` | رابط موقعك الفعلي على Vercel أو الدومين |
+| `instagram` | رابط حساب الصالة على انستغرام |
+| `geo` | إحداثيات الصالة، مثال: `{ lat: 35.0113, lng: 37.0533 }` |
+| `mapsUrl` | (اختياري) رابط الصالة في خرائط جوجل |
+| `googleVerification` | رمز التحقق من Google Search Console |
+
+## الصور
+- صور الأعمال الحقيقية في `public/photos/` (WebP محسّنة).
+- قائمة معرض «أعمالنا» في `src/lib/gallery.ts` — لإضافة صورة: ضعها في `public/photos/gallery/` و`public/photos/thumbs/` وأضف سطراً بنفس الصيغة.
+- صور الأقسام ورؤوس الصفحات في كائن `IMG` أعلى `src/lib/data.ts`.
+
+## الشعار
+`public/logos/logo-mark.png` (شفاف) · `public/logos/logo.png` · `public/logos/logo-square.jpg`
+أيقونة المتصفح: `src/app/icon.png` و `src/app/apple-icon.png`
+
+## SEO
+- عنوان ووصف خاص لكل صفحة + Open Graph + صورة مشاركة `public/og.jpg`
+- بيانات منظمة: FurnitureStore (نشاط محلي) + WebSite + BreadcrumbList
+- `sitemap.xml` و `robots.txt` و `manifest.webmanifest` تُولَّد تلقائياً
+
+## التشغيل
 ```bash
 npm install
 npm run dev
 ```
 
-## الرفع على GitHub + Vercel
-1. أنشئ مستودعا جديدا على GitHub وارفع كل ملفات هذا المجلد (بدون node_modules و .next — ملف .gitignore يتكفل بذلك).
-2. في Vercel اضغط New Project واختر المستودع.
-3. لا تغير أي إعداد: Framework = Next.js، Build Command = next build، Install = npm install.
-4. اضغط Deploy.
-
-بعد النشر، عدل `SITE.url` في `src/lib/seo.ts` ليطابق رابط الموقع الحقيقي.
-
-## أين تعدل المحتوى
-- `src/lib/data.ts` — الأقسام، الخدمات، المميزات، خطوات العمل، المشاريع، صور المعرض.
-- `src/lib/seo.ts` — الاسم، أرقام الهاتف، الواتساب، العنوان، أوقات الدوام، رابط فيسبوك.
-- `public/logos/` — الشعار (logo-mark.png بخلفية شفافة، logo.png بخلفية بنية).
-
-## الصور
-الصور الحالية من Unsplash (ترخيص حر للاستخدام التجاري) وهي مؤقتة.
-لاستبدالها بصور الصالة: ضع الصور في `public/photos/` ثم غير الروابط في كائن `IMG`
-أعلى ملف `src/lib/data.ts` إلى مسارات مثل `/photos/majlis-1.jpg`.
+## النشر
+ارفع محتويات المجلد إلى GitHub ثم اربطه بـ Vercel (بدون أي إعداد إضافي).

@@ -8,7 +8,7 @@ export default function CTA() {
     <section className="relative overflow-hidden py-24">
       <div className="absolute inset-0 -z-10">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={IMG.workshop} alt="" className="h-full w-full object-cover opacity-20" />
+        <img src={IMG.workshop} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover opacity-20" />
         <div className="absolute inset-0 bg-espresso/85" />
       </div>
       <div className="container-content text-center">

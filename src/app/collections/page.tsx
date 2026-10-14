@@ -1,24 +1,27 @@
 import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/JsonLd";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import CTA from "@/components/CTA";
 import { collections, IMG } from "@/lib/data";
-import { pageMeta, waLink } from "@/lib/seo";
+import { pageMeta, waLink, breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata = pageMeta({
-  title: "أقسامنا — كل ما تحتاجه لتأثيث منزل يعكس ذوقك",
-  description: "تصفح أقسام صالة شهد للمفروشات: مجالس عربية وخليجية، غرف ضيوف وصالونات، غرف نوم وسفرة، برادي بأنواعها، وأقمشة مخمل أجنبي مستورد.",
+  title: "مفروشات في سلمية: مجالس، صالونات، غرف نوم وبرادي",
+  description:
+    "أقسام صالة شهد للمفروشات في سلمية: مجالس عربية وخليجية، غرف ضيوف وصالونات، غرف نوم وأطفال، غرف سفرة وطاولات، برادي وستائر، وأقمشة مفروشات مستوردة.",
   path: "/collections",
 });
 
 export default function CollectionsPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "أقسامنا", path: "/collections" }])} />
       <PageHero
         eyebrow="أقسامنا"
         title="كل ما تحتاجه لتأثيث منزل يعكس ذوقك"
-        subtitle="في شهد للمفروشات نؤمن أن كل قطعة تختارها تضيف لمسة خاصة إلى منزلك، لذلك نقدم تشكيلة متكاملة من المفروشات والبرادي والأقمشة، بخامات مختارة بعناية وتنفيذ احترافي يجمع بين الجمال، الراحة، والمتانة، لتستمتع بمنزل يليق بك لسنوات طويلة."
-        image={IMG.salon}
+        subtitle="في شهد للمفروشات نؤمن أن كل قطعة تختارها تضيف لمسة خاصة إلى منزلك، لذلك نقدم تشكيلة متكاملة من المفروشات والبرادي والأقمشة، بخامات مختارة بعناية وتنفيذ احترافي يجمع بين الجمال، الراحة، والمتانة، لتستمتع بمنزل يليق بك."
+        image={IMG.heroCollections}
       />
 
       <section className="py-20 md:py-24">
@@ -29,7 +32,7 @@ export default function CollectionsPage() {
                 <Reveal className={i % 2 ? "lg:[direction:rtl]" : ""}>
                   <div className="overflow-hidden rounded-xl2 border border-bone/10 shadow-lift">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={c.image} alt={c.title} className="aspect-[4/3] w-full object-cover" />
+                    <img src={c.image} alt={`${c.title} من صالة شهد للمفروشات في سلمية`} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" />
                   </div>
                 </Reveal>
 
@@ -49,12 +52,12 @@ export default function CollectionsPage() {
                     ))}
                   </ul>
                   <a
-                    href={waLink(`السلام عليكم، أرغب باستشارة بخصوص ${c.title}`)}
+                    href={waLink(`السلام عليكم، أريد أن أستفسر عن ${c.title}`)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-ghost mt-8"
                   >
-                    اطلب استشارة لهذا القسم
+                    اسأل ما تريد عن {c.title}
                   </a>
                 </Reveal>
               </div>

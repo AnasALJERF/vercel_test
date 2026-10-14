@@ -1,26 +1,28 @@
 import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/JsonLd";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import CTA from "@/components/CTA";
 import { whyUs, IMG } from "@/lib/data";
-import { SITE, pageMeta, waLink } from "@/lib/seo";
+import { SITE, pageMeta, waLink, breadcrumbJsonLd } from "@/lib/seo";
 import { stagger, fadeUp } from "@/lib/motion";
 
 export const metadata = pageMeta({
-  title: "من نحن — نبني مساحات تعكس ذوق أصحابها",
+  title: "من نحن — صالة شهد للمفروشات في سلمية",
   description:
-    "شهد للمفروشات بإدارة أحمد الجرف (أبو هادي): رؤيتنا ورسالتنا وقيمنا في تأثيث المنازل والفلل والمضافات والمحلات التجارية.",
+    "تعرف على صالة شهد للمفروشات في سلمية بإدارة أحمد الجرف (أبو هادي): خامات مختارة، خشب نوع أول، تنفيذ متقن وكفالة على جميع الأعمال.",
   path: "/about",
 });
 
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "من نحن", path: "/about" }])} />
       <PageHero
         eyebrow="من نحن"
         title="نبني مساحات تعكس ذوق أصحابها"
         subtitle="شهد للمفروشات — بإدارة أحمد الجرف (أبو هادي)"
-        image={IMG.guestRoom}
+        image={IMG.heroAbout}
       />
 
       <section className="py-20 md:py-24">
@@ -47,13 +49,13 @@ export default function AboutPage() {
 
           <Reveal delay={0.15} className="grid grid-cols-2 gap-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={IMG.fabricDetail} alt="تفاصيل التنجيد" className="aspect-square w-full rounded-xl2 border border-bone/10 object-cover" />
+            <img src={IMG.about1} alt="كراسي منجدة من أعمال شهد للمفروشات" loading="lazy" decoding="async" className="aspect-square w-full rounded-xl2 border border-bone/10 object-cover" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={IMG.curtainDrape} alt="برادي" className="mt-8 aspect-square w-full rounded-xl2 border border-bone/10 object-cover" />
+            <img src={IMG.about2} alt="برادي بنقشة كلاسيكية" loading="lazy" decoding="async" className="mt-8 aspect-square w-full rounded-xl2 border border-bone/10 object-cover" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={IMG.bedroomWarm} alt="غرفة نوم" className="aspect-square w-full rounded-xl2 border border-bone/10 object-cover" />
+            <img src={IMG.about3} alt="تسريحة برفوف مضيئة" loading="lazy" decoding="async" className="aspect-square w-full rounded-xl2 border border-bone/10 object-cover" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={IMG.tufted} alt="كرسي منجد" className="mt-8 aspect-square w-full rounded-xl2 border border-bone/10 object-cover" />
+            <img src={IMG.about4} alt="سرير طابقين للأطفال بدرج مضيء" loading="lazy" decoding="async" className="mt-8 aspect-square w-full rounded-xl2 border border-bone/10 object-cover" />
           </Reveal>
         </div>
       </section>
@@ -70,7 +72,7 @@ export default function AboutPage() {
             <p className="mt-4 leading-relaxed text-bone/75">
               نسعى لأن نقدم حلولاً متكاملة في عالم المفروشات والديكور، تجمع بين التصميم
               الراقي، والخامات الممتازة، والتنفيذ الاحترافي، لنساعد عملاءنا على إنشاء
-              مساحات تعكس شخصيتهم وتدوم لسنوات.
+              مساحات تعكس شخصيتهم وتليق بذوقهم.
             </p>
           </Reveal>
 

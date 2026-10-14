@@ -1,26 +1,28 @@
 import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/JsonLd";
 import Reveal from "@/components/Reveal";
 import Gallery from "@/components/Gallery";
 import CTA from "@/components/CTA";
-import { gallery, projects, galleryScope, IMG } from "@/lib/data";
-import { pageMeta, waLink } from "@/lib/seo";
+import { gallery, galleryCats, projects, IMG } from "@/lib/data";
+import { pageMeta, waLink, breadcrumbJsonLd } from "@/lib/seo";
 import { stagger, fadeUp } from "@/lib/motion";
 
 export const metadata = pageMeta({
-  title: "أعمالنا — مشاريع نفخر بها وثقة نعتز بها",
+  title: "أعمالنا — صور مفروشات منفذة في سلمية",
   description:
-    "معرض أعمال شهد للمفروشات: فرش منازل وفلل ومضافات، مجالس خليجية، برادي، وتجهيز محلات ومشاريع تجارية.",
+    "صور حقيقية من أعمال شهد للمفروشات في سلمية: صالونات وغرف ضيوف، مجالس عربية، غرف نوم ودواليب، غرف أطفال، برادي وستائر، وصالة العرض.",
   path: "/gallery",
 });
 
 export default function GalleryPage() {
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd([{ name: "أعمالنا", path: "/gallery" }])} />
       <PageHero
         eyebrow="أعمالنا"
         title="مشاريع نفخر بها... وثقة نعتز بها"
         subtitle="كل مشروع ننفذه هو انعكاس لاهتمامنا بالتفاصيل، وجودة الخامات، ودقة التنفيذ. استعرض مجموعة من أعمالنا التي شملت المنازل، الفلل، المضافات، المحلات التجارية، والمشاريع الخاصة."
-        image={IMG.armchair}
+        image={IMG.heroGallery}
       />
 
       <section className="py-20">
@@ -35,7 +37,7 @@ export default function GalleryPage() {
               <Reveal as="li" key={p.title} variants={fadeUp} className="card-surface overflow-hidden">
                 <div className="aspect-[4/3] overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.image} alt={p.title} className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
+                  <img src={p.image} alt={`${p.title} — من أعمال شهد للمفروشات`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg text-bone">{p.title}</h3>
@@ -58,16 +60,8 @@ export default function GalleryPage() {
             </p>
           </Reveal>
 
-          <Reveal className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-2.5">
-            {galleryScope.map((g) => (
-              <span key={g} className="rounded-full border border-bone/15 px-4 py-1.5 text-xs text-bone/75">
-                {g}
-              </span>
-            ))}
-          </Reveal>
-
           <div className="mt-12">
-            <Gallery items={gallery} />
+            <Gallery items={gallery} cats={galleryCats} />
           </div>
         </div>
       </section>

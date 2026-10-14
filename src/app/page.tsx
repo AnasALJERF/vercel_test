@@ -13,7 +13,7 @@ export default function Home() {
       <section className="relative flex min-h-[94vh] items-center overflow-hidden">
         <div className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={IMG.heroSofa} alt="" className="h-full w-full object-cover" />
+          <img src={IMG.heroSofa} alt="" decoding="async" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-l from-espresso via-espresso/85 to-espresso/45" />
           <div className="absolute inset-0 bg-gradient-to-t from-espresso via-transparent to-espresso/50" />
         </div>
@@ -27,16 +27,16 @@ export default function Home() {
               <span className="bg-honey-grad bg-clip-text text-transparent">تنبض بالأناقة والفخامة</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-bone/80">
-              في صالة شهد للمفروشات لا نكتفي ببيع المفروشات، بل نصنع تجربة متكاملة
+              في صالة شهد للمفروشات في سلمية لا نكتفي ببيع المفروشات، بل نصنع تجربة متكاملة
               تمنح منزلك شخصية مميزة تجمع بين الفخامة والراحة وجودة التنفيذ. من المجالس
               العربية والخليجية وغرف الضيوف والنوم والسفرة، إلى البرادي والأقمشة الفاخرة،
-              نهتم بأدق التفاصيل لنقدم لك فرشاً يليق بمنزلك ويدوم لسنوات.
+              نهتم بأدق التفاصيل لنقدم لك فرشاً يليق بمنزلك.
             </p>
             <div className="mt-9 flex flex-wrap gap-4">
               <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn-honey">اطلب استشارة مجانية</a>
               <Link href="/collections" className="btn-ghost">اكتشف مجموعاتنا</Link>
             </div>
-            <p className="mt-8 text-sm text-taupe">بإدارة أحمد الجرف (أبو هادي)</p>
+            <p className="mt-8 text-sm text-taupe">صالة شهد للمفروشات · سلمية — بإدارة أحمد الجرف (أبو هادي)</p>
           </Reveal>
         </div>
       </section>
@@ -67,7 +67,7 @@ export default function Home() {
             <span className="eyebrow">من نحن</span>
             <h2 className="mt-5 text-display-md text-bone">نؤمن أن جمال المنزل يبدأ من التفاصيل</h2>
             <p className="mt-6 leading-loose text-bone/75">
-              منذ سنوات، تساعد صالة شهد للمفروشات العائلات على تصميم منازل تجمع بين
+              منذ سنوات، تساعد صالة شهد للمفروشات العائلات في سلمية ومحافظة حماة على تصميم منازل تجمع بين
               الأناقة والراحة والجودة. لا نعرض منتجات جاهزة فقط، بل نساعد كل عميل على
               اختيار ما يناسب ذوقه ومساحة منزله ليحصل على نتيجة يشعر بالفخر بها كل يوم.
             </p>
@@ -81,9 +81,9 @@ export default function Home() {
 
           <Reveal delay={0.15} className="grid grid-cols-2 gap-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={IMG.majlis} alt="جلسة خليجية" className="aspect-[3/4] w-full rounded-xl2 border border-bone/10 object-cover" />
+            <img src={IMG.homeIntro1} alt="كراسي مخمل من تنفيذ شهد للمفروشات" loading="lazy" decoding="async" className="aspect-[3/4] w-full rounded-xl2 border border-bone/10 object-cover" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={IMG.velvet} alt="مخمل فاخر" className="mt-8 aspect-[3/4] w-full rounded-xl2 border border-bone/10 object-cover" />
+            <img src={IMG.homeIntro2} alt="صالون بيج مع برادي من أعمال شهد للمفروشات في سلمية" loading="lazy" decoding="async" className="mt-8 aspect-[3/4] w-full rounded-xl2 border border-bone/10 object-cover" />
           </Reveal>
         </div>
       </section>
@@ -95,7 +95,7 @@ export default function Home() {
             <Reveal className="md:col-span-7">
               <div className="relative h-full overflow-hidden rounded-xl2 border border-bone/10">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={highlights[0].image} alt={highlights[0].title} className="h-full min-h-[280px] w-full object-cover md:min-h-[430px]" />
+                <img src={highlights[0].image} alt={`${highlights[0].title} — شهد للمفروشات في سلمية`} loading="lazy" decoding="async" className="h-full min-h-[280px] w-full object-cover md:min-h-[430px]" />
                 <div className="absolute inset-0 bg-gradient-to-t from-espresso/90 via-espresso/15 to-transparent" />
                 <div className="absolute bottom-7 start-7 end-7">
                   <p className="font-latin text-xs tracking-[0.3em] text-honey">{highlights[0].key}</p>
@@ -110,7 +110,7 @@ export default function Home() {
                 <Reveal key={h.key} delay={0.1 + i * 0.08}>
                   <div className="relative overflow-hidden rounded-xl2 border border-bone/10">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={h.image} alt={h.title} className="h-[205px] w-full object-cover" />
+                    <img src={h.image} alt={`${h.title} — شهد للمفروشات في سلمية`} loading="lazy" decoding="async" className="h-[205px] w-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-espresso/90 to-transparent" />
                     <div className="absolute bottom-5 start-6 end-6">
                       <p className="font-latin text-xs tracking-[0.3em] text-honey">{h.key}</p>
@@ -140,7 +140,7 @@ export default function Home() {
                 <Link href={`/collections#${c.slug}`} className="group block card-surface overflow-hidden">
                   <div className="relative aspect-[4/3] overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={c.image} alt={c.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <img src={c.image} alt={`${c.title} — شهد للمفروشات في سلمية`} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-walnut via-walnut/30 to-transparent" />
                     <span className="absolute bottom-4 start-5 flex h-11 w-11 items-center justify-center rounded-full bg-honey-grad text-espresso">
                       <Icon name={c.icon} size={22} />
