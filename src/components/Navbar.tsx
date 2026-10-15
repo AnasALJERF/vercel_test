@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
-import { waLink } from "@/lib/seo";
+import { waHref } from "@/content/links";
 
 const links = [
   { href: "/", label: "الرئيسية" },
@@ -15,7 +15,7 @@ const links = [
   { href: "/contact", label: "تواصل معنا" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ whatsapp }: { whatsapp?: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -50,7 +50,7 @@ export default function Navbar() {
           })}
         </ul>
 
-        <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn-honey hidden lg:inline-flex">
+        <a href={waHref(whatsapp)} target="_blank" rel="noopener noreferrer" className="btn-honey hidden lg:inline-flex">
           اطلب استشارة
         </a>
 
@@ -75,7 +75,7 @@ export default function Navbar() {
                 {l.label}
               </Link>
             ))}
-            <a href={waLink()} target="_blank" rel="noopener noreferrer" className="btn-honey mt-2">
+            <a href={waHref(whatsapp)} target="_blank" rel="noopener noreferrer" className="btn-honey mt-2">
               اطلب استشارة
             </a>
           </div>

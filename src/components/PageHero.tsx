@@ -6,8 +6,8 @@ export default function PageHero({
   subtitle,
   image,
 }: {
-  eyebrow: string;
-  title: string;
+  eyebrow?: string;
+  title?: string;
   subtitle?: string;
   image: string;
 }) {
@@ -20,8 +20,8 @@ export default function PageHero({
       </div>
       <div className="container-content relative z-10">
         <Reveal className="max-w-2xl">
-          <span className="eyebrow">{eyebrow}</span>
-          <h1 className="mt-4 text-display-md text-bone">{title}</h1>
+          {eyebrow && <span className="eyebrow">{eyebrow}</span>}
+          {title && <h1 className="mt-4 text-display-md text-bone">{title}</h1>}
           {subtitle && <p className="mt-4 max-w-xl leading-relaxed text-bone/75">{subtitle}</p>}
         </Reveal>
       </div>

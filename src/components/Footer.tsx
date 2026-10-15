@@ -2,20 +2,19 @@ import Link from "next/link";
 import Logo from "./Logo";
 import Icon from "./Icons";
 import SocialIcons from "./SocialIcons";
-import { SITE } from "@/lib/seo";
+import type { Defaults } from "@/content/defaults";
 
-export default function Footer() {
+export default function Footer({ settings }: { settings: Partial<Defaults["settings"]> }) {
+  const phones = settings.phones ?? [];
   return (
     <footer className="border-t border-bone/10 bg-walnut/60">
       <div className="container-content py-14">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
             <Logo />
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-taupe">
-              {SITE.footerAbout}
-            </p>
+            {settings.footerAbout && <p className="mt-5 max-w-sm text-sm leading-relaxed text-taupe">{settings.footerAbout}</p>}
             <p className="mt-7 text-xs font-semibold text-bone/80">تابعنا وتواصل معنا</p>
-            <SocialIcons className="mt-3" />
+            <SocialIcons className="mt-3" links={settings} />
           </div>
 
           <div>
@@ -33,27 +32,34 @@ export default function Footer() {
           <div>
             <h2 className="text-sm font-semibold text-bone">تواصل</h2>
             <ul className="mt-4 space-y-3 text-sm text-taupe">
-              <li className="flex items-start gap-3">
-                <Icon name="pin" size={18} className="mt-0.5 shrink-0 text-honey" />
-                <span>{SITE.addressLine1}<br />{SITE.addressLine2}</span>
-              </li>
-              {SITE.phones.slice(0, 2).map((p) => (
-                <li key={p.tel} className="flex items-center gap-3">
+              {(settings.addressLine1 || settings.addressLine2) && (
+                <li className="flex items-start gap-3">
+                  <Icon name="pin" size={18} className="mt-0.5 shrink-0 text-honey" />
+                  <span>
+                    {settings.addressLine1}
+                    {settings.addressLine2 && <><br />{settings.addressLine2}</>}
+                  </span>
+                </li>
+              )}
+              {phones.slice(0, 2).map((p) => (
+                <li key={p.tel || p.display} className="flex items-center gap-3">
                   <Icon name="phone" size={18} className="shrink-0 text-honey" />
                   <a href={`tel:${p.tel}`} dir="ltr" className="font-latin transition-colors hover:text-honey">{p.display}</a>
                 </li>
               ))}
-              <li className="flex items-center gap-3">
-                <Icon name="clock" size={18} className="shrink-0 text-honey" />
-                <span>{SITE.hours}</span>
-              </li>
+              {settings.hours && (
+                <li className="flex items-center gap-3">
+                  <Icon name="clock" size={18} className="shrink-0 text-honey" />
+                  <span>{settings.hours}</span>
+                </li>
+              )}
             </ul>
           </div>
         </div>
 
         <div className="hairline my-10" />
         <p className="text-center text-xs text-taupe">
-          © {new Date().getFullYear()} {SITE.name}. جميع الحقوق محفوظة.
+          © {new Date().getFullYear()} {settings.siteName || "شهد للمفروشات"}. جميع الحقوق محفوظة.
         </p>
       </div>
     </footer>

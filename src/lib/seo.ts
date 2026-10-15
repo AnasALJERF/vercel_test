@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import type { Defaults } from "@/content/defaults";
+
+type Settings = Partial<Defaults["settings"]>;
 
 /* =====================================================================
    بيانات الصالة — المكان الوحيد الذي تعدّل فيه معلومات النشاط
@@ -12,8 +15,8 @@ export const SITE = {
     "صالة شهد للمفروشات في سلمية — نقدم حلولاً متكاملة في عالم المفروشات والديكور، تشمل المجالس العربية والخليجية، غرف الضيوف، غرف النوم، غرف السفرة، البرادي، والأقمشة الفاخرة، مع اهتمام بالتفاصيل وجودة التنفيذ التي تستحقها.",
   manager: "أحمد الجرف — أبو هادي",
 
-  // ⚠️ عدّله إلى رابط موقعك الفعلي على Vercel (أو الدومين الخاص لاحقاً)
-  url: "https://shahd-furniture.vercel.app",
+  // الدومين الرسمي للموقع
+  url: "https://shahed-furniture.com",
 
   description:
     "صالة شهد للمفروشات في سلمية، حماة: مجالس عربية وخليجية، غرف ضيوف وصالونات، غرف نوم وسفرة، برادي وستائر، وأقمشة مفروشات مستوردة. تفصيل حسب الطلب مع كفالة. زورونا في شارع حمص، غرب دوار المطاعم.",
@@ -66,13 +69,15 @@ export const socials = () =>
     { id: "whatsapp", label: "واتساب", href: waLink() },
   ].filter((s) => s.href);
 
-export const mapEmbedUrl = () =>
+export const mapEmbedUrl = (s?: Settings) =>
+  s?.mapEmbed ||
   SITE.mapEmbed ||
   (SITE.geo
     ? `https://www.google.com/maps?q=${SITE.geo.lat},${SITE.geo.lng}&z=17&hl=ar&output=embed`
     : `https://www.google.com/maps?q=${encodeURIComponent("سلمية، حماة، سوريا")}&z=14&hl=ar&output=embed`);
 
-export const mapOpenUrl = () =>
+export const mapOpenUrl = (s?: Settings) =>
+  s?.mapsUrl ||
   SITE.mapsUrl ||
   (SITE.geo ? `https://www.google.com/maps/search/?api=1&query=${SITE.geo.lat},${SITE.geo.lng}` : "");
 
@@ -124,7 +129,8 @@ export function pageMeta(opts: { title: string; description?: string; path?: str
 /* ---------- Structured data (JSON-LD) ---------- */
 const abs = (p: string) => `${SITE.url}${p}`;
 
-export function localBusinessJsonLd() {
+export function localBusinessJsonLd(s: Settings = {}) {
+  const phones = s.phones?.length ? s.phones : SITE.phones;
   return {
     "@context": "https://schema.org",
     "@type": "FurnitureStore",
@@ -135,17 +141,17 @@ export function localBusinessJsonLd() {
     url: SITE.url,
     logo: abs("/logos/logo-square.jpg"),
     image: [abs("/og.jpg"), abs("/photos/site/hero-contact.webp"), abs("/photos/site/collection-salons.webp")],
-    telephone: SITE.phones[0].tel,
-    contactPoint: SITE.phones.map((p) => ({ "@type": "ContactPoint", telephone: p.tel, contactType: "customer service", areaServed: "SY", availableLanguage: "ar" })),
+    telephone: phones[0]?.tel,
+    contactPoint: phones.map((p) => ({ "@type": "ContactPoint", telephone: p.tel, contactType: "customer service", areaServed: "SY", availableLanguage: "ar" })),
     address: {
       "@type": "PostalAddress",
-      streetAddress: SITE.streetAddress,
+      streetAddress: s.addressLine2 || SITE.streetAddress,
       addressLocality: "سلمية",
       addressRegion: "حماة",
       addressCountry: "SY",
     },
     ...(SITE.geo ? { geo: { "@type": "GeoCoordinates", latitude: SITE.geo.lat, longitude: SITE.geo.lng } } : {}),
-    ...(mapOpenUrl() ? { hasMap: mapOpenUrl() } : {}),
+    ...(mapOpenUrl(s) ? { hasMap: mapOpenUrl(s) } : {}),
     areaServed: [
       { "@type": "City", name: "سلمية" },
       { "@type": "AdministrativeArea", name: "محافظة حماة" },
@@ -155,7 +161,7 @@ export function localBusinessJsonLd() {
     ],
     priceRange: "$$",
     currenciesAccepted: "SYP",
-    sameAs: [SITE.facebook, SITE.instagram].filter((u) => u && !/instagram\.com\/?$/.test(u)),
+    sameAs: [s.facebook || SITE.facebook, s.instagram || SITE.instagram].filter((u) => u && !/instagram\.com\/?$/.test(u)),
     makesOffer: [
       "مجالس عربية وخليجية",
       "غرف ضيوف وصالونات",

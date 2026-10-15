@@ -1,10 +1,10 @@
 import { FaWhatsapp } from "react-icons/fa6";
-import { waLink } from "@/lib/seo";
+import { waHref } from "@/content/links";
 
-export default function FloatingWhatsApp() {
+export default function FloatingWhatsApp({ whatsapp }: { whatsapp?: string }) {
   return (
     <a
-      href={waLink()}
+      href={waHref(whatsapp)}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="تواصل معنا عبر واتساب"

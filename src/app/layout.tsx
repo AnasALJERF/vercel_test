@@ -1,11 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
-import JsonLd from "@/components/JsonLd";
-import MotionProvider from "@/components/MotionProvider";
-import { SITE, KEYWORDS, OG_IMAGE, localBusinessJsonLd, websiteJsonLd } from "@/lib/seo";
+import { SITE, KEYWORDS, OG_IMAGE } from "@/lib/seo";
 
 const DEFAULT_TITLE = "شهد للمفروشات | مفروشات في سلمية — مجالس، غرف نوم، برادي";
 
@@ -55,23 +50,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap"
           rel="stylesheet"
         />
-        <JsonLd data={[localBusinessJsonLd(), websiteJsonLd()]} />
         {/* بدون جافاسكربت: أظهر كل المحتوى المخفي بانتظار حركة الظهور */}
         <noscript>
           <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
       </head>
-      <body>
-        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-[200] focus:rounded-lg focus:bg-honey focus:px-4 focus:py-2 focus:text-espresso">
-          تخطَّ إلى المحتوى
-        </a>
-        <MotionProvider>
-          <Navbar />
-          <main id="main">{children}</main>
-          <Footer />
-          <FloatingWhatsApp />
-        </MotionProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
