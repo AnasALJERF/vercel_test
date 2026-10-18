@@ -3,6 +3,7 @@ import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icons";
 import CTA from "@/components/CTA";
 import HomeWorks from "@/components/HomeWorks";
+import mark from "@/assets/logo-mark.png";
 import { galleryCats } from "@/lib/gallery";
 import { mixByCategory, toGalleryItems } from "@/content/gallery";
 import { altOf, getDoc, imgSrc } from "@/content/get";
@@ -24,6 +25,7 @@ export default async function Home() {
   const D = defaults.home;
   const hero = home.hero ?? D.hero;
   const intro = home.intro ?? D.intro;
+  const heroShort = hero.textMobile ?? D.hero.textMobile;
   const highlights = home.highlights ?? [];
   const collections = cols.items ?? [];
   const works = toGalleryItems(galleryPage.images);
@@ -52,10 +54,11 @@ export default async function Home() {
                 </>
               )}
             </h1>
-            {hero.text && <p className="mt-5 line-clamp-3 max-w-xl text-base leading-relaxed text-bone/80 md:mt-6 md:line-clamp-none md:text-lg">{hero.text}</p>}
-            <div className="mt-7 flex flex-wrap gap-3 md:mt-9 md:gap-4">
-              <a href={waHref(settings.whatsapp)} target="_blank" rel="noopener noreferrer" className="btn-honey">اطلب استشارة مجانية</a>
-              <a href="#works" className="btn-ghost">شاهد أعمالنا</a>
+            {heroShort && <p className="mt-5 max-w-xl text-base leading-relaxed text-bone/80 md:hidden">{heroShort}</p>}
+            {hero.text && <p className={`mt-6 max-w-xl text-lg leading-relaxed text-bone/80 ${heroShort ? "hidden md:block" : "line-clamp-3 md:line-clamp-none"}`}>{hero.text}</p>}
+            <div className="mt-7 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap md:mt-9 md:gap-4">
+              <a href={waHref(settings.whatsapp)} target="_blank" rel="noopener noreferrer" className="btn-honey whitespace-nowrap px-3 sm:px-8">اطلب استشارة مجانية</a>
+              <a href="#works" className="btn-ghost whitespace-nowrap px-3 sm:px-8">شاهد أعمالنا</a>
             </div>
             {hero.byline && <p className="mt-8 hidden text-sm text-taupe md:block">{hero.byline}</p>}
           </Reveal>
@@ -241,7 +244,7 @@ export default async function Home() {
         <div className="container-content flex flex-col items-center text-center">
           <Reveal>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logos/logo-mark.png" alt="شعار شهد للمفروشات" className="mx-auto h-20 w-auto md:h-28" />
+            <img src={mark.src} width={mark.width} height={mark.height} alt="شعار شهد للمفروشات" className="mx-auto h-20 w-auto md:h-28" />
             {home.brandLine && <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-bone/75">{home.brandLine}</p>}
           </Reveal>
         </div>
