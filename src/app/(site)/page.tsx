@@ -83,14 +83,14 @@ export default async function Home() {
       {!!home.features?.length && (
         <section className="border-b border-bone/10 bg-walnut/40 py-10 md:py-14">
           <div className="container-content">
-            <Reveal as="ul" variants={stagger} className="grid grid-cols-2 gap-x-4 gap-y-7 sm:gap-8 lg:grid-cols-4">
+            <Reveal as="ul" variants={stagger} className="grid grid-cols-2 gap-3 sm:gap-8 lg:grid-cols-4">
               {home.features.map((f) => (
-                <Reveal as="li" key={f._key} variants={fadeUp} className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-bone/5 text-honey">
+                <Reveal as="li" key={f._key} variants={fadeUp} className="flex flex-col items-center gap-3 rounded-2xl border border-bone/10 bg-espresso/40 px-3 py-5 text-center sm:flex-row sm:items-start sm:gap-4 sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0 sm:text-start">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-honey/10 text-honey sm:h-11 sm:w-11 sm:rounded-xl sm:bg-bone/5">
                     <Icon name={f.icon} size={22} />
                   </span>
                   <div>
-                    <h3 className="text-sm text-bone sm:text-base">{f.title}</h3>
+                    <h3 className="text-[15px] leading-snug text-bone sm:text-base">{f.title}</h3>
                     {f.body && <p className="mt-1 hidden text-sm leading-relaxed text-bone/65 sm:block">{f.body}</p>}
                   </div>
                 </Reveal>
@@ -112,7 +112,15 @@ export default async function Home() {
             <Link href="/about" className="btn-ghost mt-8">اكتشف قصة شهد للمفروشات</Link>
           </Reveal>
 
-          <Reveal delay={0.15} className="order-first grid grid-cols-2 gap-3 md:gap-4 lg:order-none">
+          {/* الموبايل: صورة عريضة مع صورة صغيرة متداخلة في الزاوية */}
+          <Reveal className="relative order-first pb-10 md:hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={imgSrc(intro.image2, { w: 900, h: 675 }, D.intro.image2)} alt={altOf(intro.image2, "من أعمال شهد للمفروشات في سلمية")} loading="lazy" decoding="async" className="aspect-[4/3] w-full rounded-xl2 border border-bone/10 object-cover" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={imgSrc(intro.image1, { w: 400, h: 400 }, D.intro.image1)} alt={altOf(intro.image1, "من أعمال شهد للمفروشات")} loading="lazy" decoding="async" className="absolute bottom-0 end-4 aspect-square w-[38%] rounded-2xl border-4 border-espresso object-cover shadow-lift" />
+          </Reveal>
+
+          <Reveal delay={0.15} className="hidden grid-cols-2 gap-4 md:grid">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={imgSrc(intro.image1, { w: 800, h: 1067 }, D.intro.image1)} alt={altOf(intro.image1, "من أعمال شهد للمفروشات")} loading="lazy" decoding="async" className="aspect-[3/4] w-full rounded-xl2 border border-bone/10 object-cover" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
