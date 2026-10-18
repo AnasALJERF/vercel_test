@@ -65,6 +65,10 @@ export const home = defineType({
     }),
     defineField({ name: "features", title: "شريط المميزات", type: "array", of: [defineArrayMember({ type: "iconCard" })], group: "hero" }),
 
+    {
+      ...headingField("worksHeading", "عنوان قسم «من أعمالنا» (الصور تُؤخذ تلقائياً من صفحة أعمالنا)", true),
+      group: "sections",
+    },
     defineField({
       name: "intro",
       title: "تعريف مختصر (من نحن)",

@@ -3,11 +3,11 @@ import JsonLd from "@/components/JsonLd";
 import Reveal from "@/components/Reveal";
 import Gallery from "@/components/Gallery";
 import CTA from "@/components/CTA";
-import { galleryCats, type GalleryItem } from "@/lib/gallery";
+import { galleryCats } from "@/lib/gallery";
+import { toGalleryItems } from "@/content/gallery";
 import { altOf, getDoc, imgSrc } from "@/content/get";
 import { defaults } from "@/content/defaults";
 import { waHref } from "@/content/links";
-import type { Img } from "@/content/types";
 import { pageMeta, breadcrumbJsonLd } from "@/lib/seo";
 import { stagger, fadeUp } from "@/lib/motion";
 
@@ -20,31 +20,11 @@ export const metadata = pageMeta({
 
 export const revalidate = 60;
 
-const CATS = new Set(["salons", "majlis", "bedrooms", "kids", "curtains", "showroom", "pieces"]);
-
-function toGalleryItem(g: Img): GalleryItem | null {
-  const cat = (CATS.has(g.category ?? "") ? g.category : "salons") as GalleryItem["cat"];
-  const alt = `${g.alt || "من أعمال شهد للمفروشات"} — شهد للمفروشات في سلمية`;
-  if (g.asset?._ref || g.asset?._id) {
-    const dims = g.dims ?? { width: 4, height: 3 };
-    return {
-      src: imgSrc(g, { w: 1800 }),
-      thumb: imgSrc(g, { w: 720 }),
-      w: 720,
-      h: Math.round((720 * dims.height) / dims.width),
-      cat,
-      alt,
-    };
-  }
-  if (g.local) return { src: g.local, thumb: g.thumb || g.local, w: g.w || 720, h: g.h || 540, cat, alt };
-  return null;
-}
-
 export default async function GalleryPage() {
   const [page, settings] = await Promise.all([getDoc("galleryPage"), getDoc("settings")]);
   const D = defaults.galleryPage;
   const hero = page.hero ?? D.hero;
-  const items = (page.images ?? []).map((g) => toGalleryItem(g as Img)).filter(Boolean) as GalleryItem[];
+  const items = toGalleryItems(page.images);
   const projects = page.projects ?? [];
 
   return (
@@ -53,16 +33,16 @@ export default async function GalleryPage() {
       <PageHero eyebrow={hero.eyebrow} title={hero.title} subtitle={hero.subtitle} image={imgSrc(hero.image, { w: 2000 }, D.hero.image)} />
 
       {projects.length > 0 && (
-        <section className="py-20">
+        <section className="py-14 md:py-20">
           <div className="container-content">
             <Reveal className="mx-auto max-w-2xl text-center">
               {page.projectsHeading?.eyebrow && <span className="eyebrow justify-center">{page.projectsHeading.eyebrow}</span>}
               {page.projectsHeading?.title && <h2 className="mt-5 text-display-md text-bone">{page.projectsHeading.title}</h2>}
             </Reveal>
 
-            <Reveal as="ul" variants={stagger} className="mt-14 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+            <Reveal as="ul" className="rail mt-10 md:mx-0 md:mt-14 md:grid md:grid-cols-2 md:gap-7 md:overflow-visible md:px-0 lg:grid-cols-3">
               {projects.map((p) => (
-                <Reveal as="li" key={p._key} variants={fadeUp} className="card-surface overflow-hidden">
+                <li key={p._key} className="card-surface w-[78vw] max-w-[340px] shrink-0 snap-start overflow-hidden md:w-auto md:max-w-none">
                   <div className="aspect-[4/3] overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={imgSrc(p.image, { w: 900, h: 675 })} alt={altOf(p.image, `${p.title} — من أعمال شهد للمفروشات`)} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-700 hover:scale-105" />
@@ -71,7 +51,7 @@ export default async function GalleryPage() {
                     <h3 className="text-lg text-bone">{p.title}</h3>
                     {p.scope && <p className="mt-2.5 text-sm leading-relaxed text-bone/65">{p.scope}</p>}
                   </div>
-                </Reveal>
+                </li>
               ))}
             </Reveal>
           </div>
@@ -79,7 +59,7 @@ export default async function GalleryPage() {
       )}
 
       {items.length > 0 && (
-        <section className="border-t border-bone/10 py-20">
+        <section className="border-t border-bone/10 py-14 md:py-20">
           <div className="container-content">
             <Reveal className="mx-auto mb-10 max-w-2xl text-center">
               {page.galleryHeading?.eyebrow && <span className="eyebrow justify-center">{page.galleryHeading.eyebrow}</span>}

@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useMemo, useState } from "react";
+import Lightbox from "./Lightbox";
 import type { GalleryCat, GalleryItem } from "@/lib/gallery";
 
 export default function Gallery({
@@ -21,31 +21,9 @@ export default function Gallery({
     return c;
   }, [items]);
 
-  const close = useCallback(() => setActive(null), []);
-  const step = useCallback(
-    (d: number) => setActive((a) => (a === null ? a : (a + d + shown.length) % shown.length)),
-    [shown.length],
-  );
-
-  useEffect(() => {
-    if (active === null) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-      // RTL: right arrow = previous, left arrow = next
-      if (e.key === "ArrowLeft") step(1);
-      if (e.key === "ArrowRight") step(-1);
-    };
-    window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [active, close, step]);
-
   return (
     <>
-      <div role="tablist" aria-label="تصنيف الصور" className="mx-auto mb-10 flex max-w-4xl flex-wrap justify-center gap-2.5">
+      <div role="tablist" aria-label="تصنيف الصور" className="rail mx-auto mb-8 max-w-4xl gap-2 sm:mb-10 sm:flex-wrap sm:justify-center sm:gap-2.5 md:mx-auto">
         {cats
           .filter((c) => counts[c.id])
           .map((c) => {
@@ -55,8 +33,8 @@ export default function Gallery({
                 key={c.id}
                 role="tab"
                 aria-selected={on}
-                onClick={() => setCat(c.id)}
-                className={`rounded-full border px-4 py-2 text-sm transition-colors ${
+                onClick={() => { setCat(c.id); setActive(null); }}
+                className={`shrink-0 whitespace-nowrap rounded-full border px-4 py-2 text-sm transition-colors ${
                   on ? "border-honey bg-honey/15 text-honey" : "border-bone/15 text-bone/75 hover:border-honey/50 hover:text-bone"
                 }`}
               >
@@ -67,12 +45,12 @@ export default function Gallery({
           })}
       </div>
 
-      <div className="columns-2 gap-4 md:columns-3 lg:columns-4">
+      <div className="columns-2 gap-2.5 sm:gap-4 md:columns-3 lg:columns-4">
         {shown.map((g, i) => (
           <button
             key={g.src}
             onClick={() => setActive(i)}
-            className="group mb-4 block w-full overflow-hidden rounded-xl2 border border-bone/10 transition-colors hover:border-honey/40"
+            className="group mb-2.5 block w-full sm:mb-4 overflow-hidden rounded-xl2 border border-bone/10 transition-colors hover:border-honey/40"
             aria-label={`تكبير: ${g.alt}`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -89,68 +67,7 @@ export default function Gallery({
         ))}
       </div>
 
-      <AnimatePresence>
-        {active !== null && shown[active] && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={close}
-            role="dialog"
-            aria-modal="true"
-            aria-label={shown[active].alt}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-espresso/95 p-4 sm:p-8"
-          >
-            <motion.img
-              key={shown[active].src}
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              src={shown[active].src}
-              alt={shown[active].alt}
-              onClick={(e) => e.stopPropagation()}
-              className="max-h-[80vh] max-w-full rounded-xl2 object-contain"
-            />
-            <p className="mt-4 text-center text-sm text-bone/75">
-              {shown[active].alt.split(" — ")[0]}
-              <span className="font-latin ms-3 text-xs text-taupe">
-                {active + 1} / {shown.length}
-              </span>
-            </p>
-
-            <button
-              onClick={close}
-              className="absolute end-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-bone/25 text-bone hover:border-honey hover:text-honey"
-              aria-label="إغلاق"
-            >
-              ✕
-            </button>
-            {shown.length > 1 && (
-              <>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    step(-1);
-                  }}
-                  className="absolute start-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-bone/25 bg-espresso/60 text-xl text-bone hover:border-honey hover:text-honey sm:start-6"
-                  aria-label="الصورة السابقة"
-                >
-                  ›
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    step(1);
-                  }}
-                  className="absolute end-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-bone/25 bg-espresso/60 text-xl text-bone hover:border-honey hover:text-honey sm:end-6"
-                  aria-label="الصورة التالية"
-                >
-                  ‹
-                </button>
-              </>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Lightbox items={shown} index={active} onChange={setActive} />
     </>
   );
 }

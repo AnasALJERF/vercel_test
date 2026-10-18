@@ -40,6 +40,11 @@ export const defaults = {
       image: img(IMG.heroSofa, "صالون فاخر — شهد للمفروشات"),
     },
     features: features.map((f, i) => ({ _type: "iconCard", _key: `f${i}`, title: f.title, body: f.body, icon: f.icon })),
+    worksHeading: {
+      eyebrow: "من أعمالنا",
+      title: "صور حقيقية من بيوت عملائنا",
+      text: "اختر القسم الذي يهمك، واضغط على أي صورة لتكبيرها.",
+    },
     intro: {
       eyebrow: "من نحن",
       title: "نؤمن أن جمال المنزل يبدأ من التفاصيل",

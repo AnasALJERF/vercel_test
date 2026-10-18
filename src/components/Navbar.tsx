@@ -54,9 +54,23 @@ export default function Navbar({ whatsapp }: { whatsapp?: string }) {
           اطلب استشارة
         </a>
 
+        <div className="flex items-center gap-2 lg:hidden">
+          <Link
+            href="/gallery"
+            className={`flex h-11 items-center gap-2 rounded-full border px-4 text-sm font-bold transition-colors ${
+              pathname === "/gallery" ? "border-honey bg-honey text-espresso" : "border-honey/60 bg-honey/10 text-honey"
+            }`}
+          >
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+              <rect x="3" y="3" width="18" height="18" rx="3" />
+              <circle cx="9" cy="9" r="2" />
+              <path d="m21 15-5-5L5 21" />
+            </svg>
+            أعمالنا
+          </Link>
         <button
           onClick={() => setOpen((v) => !v)}
-          className="flex h-11 w-11 items-center justify-center rounded-lg border border-bone/20 text-bone lg:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-lg border border-bone/20 text-bone"
           aria-label="القائمة"
         >
           <span className="relative block h-4 w-5">
@@ -65,6 +79,7 @@ export default function Navbar({ whatsapp }: { whatsapp?: string }) {
             <span className={`absolute inset-x-0 top-3 h-0.5 bg-current transition ${open ? "-translate-y-1 -rotate-45" : ""}`} />
           </span>
         </button>
+        </div>
       </nav>
 
       {open && (

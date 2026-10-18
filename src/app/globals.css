@@ -68,6 +68,17 @@
            hover:border-honey hover:text-honey;
   }
 
+  /* شريط أفقي قابل للسحب على الموبايل (يُلغى على الشاشات الكبيرة بأصناف md:) */
+  .rail {
+    @apply -mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-6;
+    scroll-padding-inline: 1.5rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+
   .card-surface {
     @apply rounded-xl2 border border-bone/8 bg-walnut/70 backdrop-blur-sm;
   }
